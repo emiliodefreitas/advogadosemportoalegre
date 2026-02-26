@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Advogado em Porto Alegre | Direito Civil e Digital</title>
+<meta name="description" content="Advogado em Porto Alegre especialista em Direito Civil e Digital. Liminares, LGPD, recursos e assessoria jurídica estratégica.">
+<meta name="keywords" content="advogado Porto Alegre, direito civil Porto Alegre, direito digital Porto Alegre, LGPD advogado">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://advogadoemportoalegre.com.br">
+<link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Exo+2:wght@300;400;700;900&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --cyan: #00f5ff;
+  --blue: #0050ff;
+  --blue-dark: #001aff;
+  --bg: #00020f;
+  --grid: rgba(0,80,255,0.12);
+  --glow-cyan: 0 0 8px #00f5ff, 0 0 30px rgba(0,245,255,0.4);
+  --glow-blue: 0 0 12px #0050ff, 0 0 40px rgba(0,80,255,0.5);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: #c8f0ff;
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 300;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+.cursor {
+  position: fixed;
+  width: 16px; height: 16px;
+  border: 2px solid var(--cyan);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  transition: transform .08s, background .2s;
+  mix-blend-mode: screen;
+}
+.cursor-dot {
+  position: fixed;
+  width: 4px; height: 4px;
+  background: var(--cyan);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 9999;
+  transform: translate(-50%, -50%);
+  box-shadow: var(--glow-cyan);
+}
+.cursor.active { transform: translate(-50%,-50%) scale(2.5); background: rgba(0,245,255,0.1); }
+
+body::before {
+  content:'';
+  position: fixed; inset: 0;
+  background: repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,0.15) 2px,rgba(0,0,0,0.15) 4px);
+  pointer-events: none;
+  z-index: 100;
+  animation: scanMove 8s linear infinite;
+}
+@keyframes scanMove { from{background-position:0 0;} to{background-position:0 40px;} }
+
+body::after {
+  content:'';
+  position: fixed; inset: 0;
+  background-image: linear-gradient(var(--grid) 1px,transparent 1px), linear-gradient(90deg,var(--grid) 1px,transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+canvas#holoCube {
+  position: fixed;
+  top: 50%; left: 50%;
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0.85;
+}
+
+.noise {
+  position: fixed; inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.5;
+}
+
+header {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 90px 20px 0;
+}
+
+.header-label {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .75rem;
+  letter-spacing: 6px;
+  color: var(--blue);
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  animation: blink 3s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+h1 {
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 900;
+  font-size: clamp(2rem, 6vw, 4.2rem);
+  line-height: 1.05;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  position: relative;
+  display: inline-block;
+}
+h1 .line1 { display: block; color: var(--cyan); text-shadow: var(--glow-cyan); }
+h1 .line2 { display: block; color: #fff; text-shadow: 0 0 40px rgba(0,245,255,0.3); }
+
+h1::before, h1::after {
+  content: attr(data-text);
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  pointer-events: none;
+}
+h1::before {
+  color: #ff003c;
+  clip-path: polygon(0 30%,100% 30%,100% 50%,0 50%);
+  transform: translateX(-3px);
+  animation: glitch1 4s infinite;
+  opacity: 0.6;
+}
+h1::after {
+  color: var(--cyan);
+  clip-path: polygon(0 60%,100% 60%,100% 80%,0 80%);
+  transform: translateX(3px);
+  animation: glitch2 4s infinite;
+  opacity: 0.6;
+}
+@keyframes glitch1 {
+  0%,90%,100%{transform:translateX(0);opacity:0;}
+  92%{transform:translateX(-4px);opacity:0.7;}
+  94%{transform:translateX(4px);opacity:0.5;}
+  96%{transform:translateX(0);opacity:0;}
+}
+@keyframes glitch2 {
+  0%,93%,100%{transform:translateX(0);opacity:0;}
+  95%{transform:translateX(5px);opacity:0.6;}
+  97%{transform:translateX(-3px);opacity:0.4;}
+  99%{transform:translateX(0);opacity:0;}
+}
+
+.tagline {
+  max-width: 600px;
+  margin: 26px auto 0;
+  font-size: 1.05rem;
+  color: rgba(200,240,255,0.75);
+  line-height: 1.75;
+  letter-spacing: .5px;
+}
+
+.badge {
+  display: inline-block;
+  margin: 20px auto 0;
+  padding: 12px 22px;
+  background: rgba(0,80,255,0.08);
+  border: 1px solid rgba(0,245,255,0.2);
+  border-left: 3px solid var(--cyan);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .75rem;
+  letter-spacing: 1px;
+  color: rgba(200,240,255,0.65);
+  max-width: 740px;
+  text-align: left;
+  line-height: 1.8;
+  backdrop-filter: blur(4px);
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 700px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+.divider span { flex:1; height:1px; background:linear-gradient(90deg,transparent,var(--blue),transparent); }
+.divider i {
+  font-style: normal;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .65rem;
+  color: var(--blue);
+  letter-spacing: 4px;
+  white-space: nowrap;
+}
+
+.cta-group {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 10px 0 0;
+}
+.btn {
+  position: relative;
+  display: inline-block;
+  padding: .75rem 2rem;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .9rem;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  text-decoration: none;
+  border: 1px solid var(--cyan);
+  color: var(--cyan);
+  background: transparent;
+  clip-path: polygon(10px 0%,100% 0%,calc(100% - 10px) 100%,0% 100%);
+  transition: all .25s;
+  overflow: hidden;
+  cursor: none;
+}
+.btn::before {
+  content:'';
+  position: absolute;
+  inset: 0;
+  background: var(--cyan);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform .3s ease;
+  z-index: -1;
+}
+.btn:hover::before { transform: scaleX(1); }
+.btn:hover { color: #000; box-shadow: var(--glow-cyan); }
+.btn.secondary { border-color: var(--blue); color: #aad0ff; }
+.btn.secondary::before { background: var(--blue); }
+.btn.secondary:hover { color: #fff; box-shadow: var(--glow-blue); }
+
+main {
+  position: relative;
+  z-index: 10;
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 0 24px 80px;
+}
+
+section {
+  margin-top: 80px;
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity .7s ease, transform .7s ease;
+}
+section.visible { opacity: 1; transform: translateY(0); }
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 32px;
+}
+.section-index {
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .7rem;
+  color: var(--blue);
+  border: 1px solid var(--blue);
+  padding: 3px 8px;
+  letter-spacing: 2px;
+}
+h2 {
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.3rem, 3vw, 1.9rem);
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  text-shadow: 0 0 20px rgba(0,245,255,0.25);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 16px;
+}
+.card {
+  position: relative;
+  background: rgba(0,10,40,0.6);
+  border: 1px solid rgba(0,80,255,0.35);
+  padding: 22px 24px;
+  backdrop-filter: blur(6px);
+  clip-path: polygon(0 0,calc(100% - 12px) 0,100% 12px,100% 100%,12px 100%,0 calc(100% - 12px));
+  transition: border-color .3s, box-shadow .3s, transform .3s;
+  overflow: hidden;
+}
+.card::before {
+  content:'';
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%; height: 2px;
+  background: linear-gradient(90deg,transparent,var(--cyan),transparent);
+  transform: translateX(-100%);
+  transition: transform .5s ease;
+}
+.card:hover::before { transform: translateX(100%); }
+.card:hover {
+  border-color: var(--cyan);
+  box-shadow: 0 0 20px rgba(0,245,255,0.15), inset 0 0 20px rgba(0,245,255,0.04);
+  transform: translateY(-4px);
+}
+.card-icon { font-size: 1.4rem; margin-bottom: 10px; display: block; filter: drop-shadow(0 0 6px var(--cyan)); }
+.card h3 {
+  font-family: 'Exo 2', sans-serif;
+  font-weight: 700;
+  font-size: .88rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--cyan);
+  margin-bottom: 8px;
+}
+.card p { font-size: .87rem; color: rgba(200,240,255,0.72); line-height: 1.6; }
+
+.about-box {
+  background: rgba(0,10,40,0.5);
+  border: 1px solid rgba(0,80,255,0.3);
+  border-left: 3px solid var(--cyan);
+  padding: 32px 36px;
+  backdrop-filter: blur(8px);
+  position: relative;
+  overflow: hidden;
+}
+.about-box::after {
+  content: '⚖';
+  position: absolute;
+  right: 30px; bottom: 10px;
+  font-size: 6rem;
+  opacity: 0.04;
+  line-height: 1;
+}
+.about-box p { font-size: 1.05rem; line-height: 1.85; color: rgba(200,240,255,0.75); }
+
+.status-bar {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  padding: 6px 24px;
+  background: rgba(0,2,15,0.85);
+  border-top: 1px solid rgba(0,80,255,0.3);
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .65rem;
+  color: rgba(0,245,255,0.5);
+  backdrop-filter: blur(4px);
+  overflow: hidden;
+}
+.status-item { display: flex; align-items: center; gap: 6px; white-space: nowrap; }
+.status-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: #00ff88;
+  box-shadow: 0 0 6px #00ff88;
+  animation: pulse 2s infinite;
+}
+@keyframes pulse { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+.status-ticker { flex:1; overflow:hidden; position:relative; }
+.status-ticker span { display:inline-block; white-space:nowrap; animation:ticker 30s linear infinite; }
+@keyframes ticker { from{transform:translateX(100vw);} to{transform:translateX(-100%);} }
+
+footer {
+  position: relative;
+  z-index: 10;
+  text-align: center;
+  padding: 30px 20px 60px;
+  font-family: 'Share Tech Mono', monospace;
+  font-size: .7rem;
+  color: rgba(0,245,255,0.3);
+  border-top: 1px solid rgba(0,80,255,0.2);
+  letter-spacing: 2px;
+}
+
+@keyframes flicker { 0%,19%,21%,23%,25%,54%,56%,100%{opacity:1;} 20%,22%,24%,55%{opacity:.5;} }
+.flicker { animation: flicker 5s infinite; }
+
+.corner { position:fixed; z-index:10; pointer-events:none; }
+.corner svg { display:block; }
+.corner-tl{top:0;left:0;} .corner-tr{top:0;right:0;transform:scaleX(-1);}
+.corner-bl{bottom:0;left:0;transform:scaleY(-1);} .corner-br{bottom:0;right:0;transform:scale(-1);}
+
+@media(max-width:600px){
+  canvas#holoCube{width:320px;height:320px;}
+  .grid{grid-template-columns:1fr;}
+  .about-box{padding:22px 20px;}
+}
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-dot" id="cursorDot"></div>
+<div class="noise"></div>
+
+<div class="corner corner-tl"><svg width="60" height="60" viewBox="0 0 60 60" fill="none"><path d="M0 60 L0 0 L60 0" stroke="#0050ff" stroke-width="1.5" fill="none" opacity="0.6"/><path d="M0 40 L0 0 L40 0" stroke="#00f5ff" stroke-width="0.5" fill="none" opacity="0.5"/><circle cx="3" cy="3" r="2" fill="#00f5ff" opacity="0.8"/></svg></div>
+<div class="corner corner-tr"><svg width="60" height="60" viewBox="0 0 60 60" fill="none"><path d="M0 60 L0 0 L60 0" stroke="#0050ff" stroke-width="1.5" fill="none" opacity="0.6"/><path d="M0 40 L0 0 L40 0" stroke="#00f5ff" stroke-width="0.5" fill="none" opacity="0.5"/><circle cx="3" cy="3" r="2" fill="#00f5ff" opacity="0.8"/></svg></div>
+<div class="corner corner-bl"><svg width="60" height="60" viewBox="0 0 60 60" fill="none"><path d="M0 60 L0 0 L60 0" stroke="#0050ff" stroke-width="1.5" fill="none" opacity="0.6"/><path d="M0 40 L0 0 L40 0" stroke="#00f5ff" stroke-width="0.5" fill="none" opacity="0.5"/><circle cx="3" cy="3" r="2" fill="#00f5ff" opacity="0.8"/></svg></div>
+<div class="corner corner-br"><svg width="60" height="60" viewBox="0 0 60 60" fill="none"><path d="M0 60 L0 0 L60 0" stroke="#0050ff" stroke-width="1.5" fill="none" opacity="0.6"/><path d="M0 40 L0 0 L40 0" stroke="#00f5ff" stroke-width="0.5" fill="none" opacity="0.5"/><circle cx="3" cy="3" r="2" fill="#00f5ff" opacity="0.8"/></svg></div>
+
+<canvas id="holoCube" width="700" height="700"></canvas>
+
+<div class="status-bar">
+  <div class="status-item"><div class="status-dot"></div><span>SISTEMA ATIVO</span></div>
+  <div class="status-item">◈ POA-RS</div>
+  <div class="status-item flicker">◈ OAB/RS</div>
+  <div class="status-ticker">
+    <span>DIREITO CIVIL — LGPD — TUTELAS — MEDIAÇÃO — DIREITO IMOBILIÁRIO — FAMÍLIA — PREVIDENCIÁRIO — DIREITO DO CONSUMIDOR — CONSULTORIA LEGAL — ACORDOS EXTRAJUDICIAIS — CADEIA DE CUSTÓDIA — RECURSOS JUDICIAIS — COMPLIANCE EMPRESARIAL &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span>
+  </div>
+</div>
+
+<header>
+  <div class="header-label">Porto Alegre · RS · Brasil</div>
+
+  <h1 data-text="ADVOGADO EM PORTO ALEGRE ADVOGADO EM PORTO ALEGRE">
+    <span class="line1">ADVOGADO EM</span>
+    <span class="line2">PORTO ALEGRE</span>
+  </h1>
+
+  <p class="tagline">Atuação estratégica em Direito Civil e Direito Digital com foco em resultados rápidos, soluções jurídicas práticas e segurança jurídica.</p>
+
+  <div class="badge">
+    📌 Advogado especialista em defesa judicial e consultoria preventiva para pessoas físicas e empresas — atuação ética, conforme o Código de Ética da OAB e orientada a resultados.
+  </div>
+
+  <div class="divider"><span></span><i>[ ACESSO JURÍDICO ]</i><span></span></div>
+
+  <div class="cta-group">
+    <a class="btn" href="tel:+5551981574837">&#9742; Contato</a>
+    <a class="btn secondary" href="#quemSomos">Quem Somos Nós</a>
+  </div>
+</header>
+
+<main>
+
+  <section id="quemSomos">
+    <div class="section-header">
+      <span class="section-index">01</span>
+      <h2>Quem Somos Nós</h2>
+    </div>
+    <div class="about-box">
+      <p>Somos um escritório de advocacia em Porto Alegre – RS, com atendimento técnico e estratégico voltado à proteção dos seus direitos e mitigação de riscos jurídicos. Alinhamos experiência, conhecimento atualizado e soluções personalizadas com foco em eficiência e assertividade.</p>
+    </div>
+  </section>
+
+  <section id="servicos">
+    <div class="section-header">
+      <span class="section-index">02</span>
+      <h2>O que Fazemos</h2>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <span class="card-icon">⚡</span>
+        <h3>Liminares e Antecipação de Tutela</h3>
+        <p>Ajuizamos pedidos urgentes de liminares e tutelas antecipadas em questões civis e de urgência, buscando a proteção imediata de direitos antes do julgamento final.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🔒</span>
+        <h3>Compliance e LGPD</h3>
+        <p>Assessoria em compliance empresarial e adequação à Lei Geral de Proteção de Dados (LGPD), com elaboração de políticas internas, treinamentos e auditorias para conformidade legal.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🤝</span>
+        <h3>Mediação em CEJUSC</h3>
+        <p>Atuação profissional em sessões de mediação e conciliação nos Centros Judiciários de Solução de Conflitos, buscando acordos extrajudiciais eficientes e menos onerosos.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">📋</span>
+        <h3>Acordos Extrajudiciais</h3>
+        <p>Negociação e formalização de acordos entre partes fora do Judiciário para soluções rápidas e com menor custo processual.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">📂</span>
+        <h3>Recursos em 1º e 2º Graus</h3>
+        <p>Elaboração de recursos judiciais nos Tribunais de Justiça e Tribunais Regionais Federais, com estratégia de reforço probatório e melhoria das chances de êxito.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">⚖</span>
+        <h3>Honorários conforme tabela OAB</h3>
+        <p>Transparência e conformidade com a tabela de honorários da OAB, garantindo ética e previsibilidade no custo dos serviços prestados.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="areas">
+    <div class="section-header">
+      <span class="section-index">03</span>
+      <h2>Áreas de Atuação</h2>
+    </div>
+    <div class="grid">
+      <div class="card">
+        <span class="card-icon">🏛</span>
+        <h3>Direito Civil</h3>
+        <p>Soluções em demandas civis — contratos, indenizações, obrigações e responsabilidade civil — adaptadas às necessidades pessoais ou empresariais.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">👨‍👩‍👧</span>
+        <h3>Direito da Família</h3>
+        <p>Divórcio, guarda, pensão alimentícia, partilha de bens e outros conflitos familiares com foco em resoluções equilibradas.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">💼</span>
+        <h3>Direito do Trabalho</h3>
+        <p>Defesa dos direitos trabalhistas, ações contra demissões injustas, reclamações de verbas e consultoria preventiva para empregadores e empregados.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">💻</span>
+        <h3>Direito Digital</h3>
+        <p>Consultoria especializada em temas digitais, proteção de dados, responsabilidade online e litígios tecnológicos.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🏠</span>
+        <h3>Direito Imobiliário</h3>
+        <p>Assessoria em contratos de compra e venda, locação, regularização de imóveis e litígios relacionados a posse e propriedade.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🛡</span>
+        <h3>Previdenciário</h3>
+        <p>Acompanhamento de benefícios do INSS, revisões, concessões e recursos em demandas previdenciárias.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🛒</span>
+        <h3>Direito do Consumidor</h3>
+        <p>Defesa de consumidores em ações por práticas abusivas, produtos defeituosos, contratos e indenizações.</p>
+      </div>
+      <div class="card">
+        <span class="card-icon">🔍</span>
+        <h3>Análise de Provas (Cadeia de Custódia)</h3>
+        <p>Avaliação técnica de provas e preservação da cadeia de custódia para fortalecer as estratégias no processo judicial.</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="sobreNos">
+    <div class="section-header">
+      <span class="section-index">04</span>
+      <h2>Sobre Nós</h2>
+    </div>
+    <div class="about-box">
+      <p>Localizado em Porto Alegre – RS, nosso escritório alia técnica jurídica com uma abordagem preventiva e orientada à solução. Atuamos tanto em contencioso judicial quanto em consultivo jurídico, com foco em clareza, proximidade com o cliente e resultados tangíveis em prazos competitivos.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  &copy; 2025 — ADVOGADO EM PORTO ALEGRE — DIREITO CIVIL &amp; DIGITAL — TODOS OS DIREITOS RESERVADOS
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const dot = document.getElementById('cursorDot');
+let mx=0,my=0,cx=0,cy=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;dot.style.left=mx+'px';dot.style.top=my+'px';});
+(function animCursor(){cx+=(mx-cx)*0.12;cy+=(my-cy)*0.12;cursor.style.left=cx+'px';cursor.style.top=cy+'px';requestAnimationFrame(animCursor);})();
+document.querySelectorAll('a,.card').forEach(el=>{
+  el.addEventListener('mouseenter',()=>cursor.classList.add('active'));
+  el.addEventListener('mouseleave',()=>cursor.classList.remove('active'));
+});
+
+const observer=new IntersectionObserver(entries=>{entries.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');});},{threshold:0.1});
+document.querySelectorAll('section').forEach(s=>observer.observe(s));
+
+(function(){
+  const canvas=document.getElementById('holoCube');
+  const ctx=canvas.getContext('2d');
+  const W=canvas.width,H=canvas.height,cx2=W/2,cy2=H/2,S=180;
+
+  const verts=[[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]].map(v=>v.map(x=>x*S));
+  const edges=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+  const faces=[[0,1,2,3],[4,5,6,7],[0,1,5,4],[2,3,7,6],[1,2,6,5],[0,3,7,4]];
+  let rx=0.3,ry=0,rz=0.1;
+
+  const rotX=(v,a)=>{const[x,y,z]=v;return[x,y*Math.cos(a)-z*Math.sin(a),y*Math.sin(a)+z*Math.cos(a)];};
+  const rotY=(v,a)=>{const[x,y,z]=v;return[x*Math.cos(a)+z*Math.sin(a),y,-x*Math.sin(a)+z*Math.cos(a)];};
+  const rotZ=(v,a)=>{const[x,y,z]=v;return[x*Math.cos(a)-y*Math.sin(a),x*Math.sin(a)+y*Math.cos(a),z];};
+  const project=v=>{const focal=600,z=v[2]+500,sc=focal/z;return[cx2+v[0]*sc,cy2+v[1]*sc];};
+
+  function draw(){
+    ctx.clearRect(0,0,W,H);
+    const rotated=verts.map(v=>{let r=rotX(v,rx);r=rotY(r,ry);return rotZ(r,rz);});
+    const projected=rotated.map(project);
+
+    faces.forEach(face=>{
+      const depth=face.map(i=>rotated[i]).reduce((s,p)=>s+p[2],0)/4;
+      const b=(depth+S*2)/(S*4);
+      ctx.beginPath();face.forEach((vi,i)=>{const[px,py]=projected[vi];i===0?ctx.moveTo(px,py):ctx.lineTo(px,py);});ctx.closePath();
+      ctx.fillStyle=`rgba(0,80,255,${0.03+b*0.06})`;ctx.fill();
+    });
+
+    edges.forEach(([a,b])=>{
+      const[ax,ay]=projected[a],[bx,by]=projected[b];
+      const dz=(rotated[a][2]+rotated[b][2])/2;
+      const bright=(dz+S*1.5)/(S*3);
+      ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);
+      ctx.strokeStyle=`rgba(0,180,255,${0.35+bright*0.4})`;ctx.lineWidth=4;ctx.shadowColor='#00f5ff';ctx.shadowBlur=18;ctx.stroke();
+      ctx.beginPath();ctx.moveTo(ax,ay);ctx.lineTo(bx,by);
+      ctx.strokeStyle=`rgba(100,240,255,${0.6+bright*0.4})`;ctx.lineWidth=1;ctx.shadowColor='#00f5ff';ctx.shadowBlur=6;ctx.stroke();
+      ctx.shadowBlur=0;
+    });
+
+    projected.forEach(([px,py])=>{ctx.beginPath();ctx.arc(px,py,3,0,Math.PI*2);ctx.fillStyle='#00f5ff';ctx.shadowColor='#00f5ff';ctx.shadowBlur=12;ctx.fill();ctx.shadowBlur=0;});
+
+    const aL=S*1.9;
+    const drawAxis=(pts,color)=>{pts.forEach(v=>{let r=rotX(v,rx);r=rotY(r,ry);r=rotZ(r,rz);const[px,py]=project(r);ctx.beginPath();ctx.moveTo(cx2,cy2);ctx.lineTo(px,py);ctx.strokeStyle=color;ctx.lineWidth=1;ctx.stroke();});};
+    drawAxis([[aL,0,0],[-aL,0,0]],'rgba(255,50,100,0.35)');
+    drawAxis([[0,aL,0],[0,-aL,0]],'rgba(0,255,120,0.35)');
+    drawAxis([[0,0,aL],[0,0,-aL]],'rgba(0,120,255,0.45)');
+
+    const gN=5,gS=S*0.7;
+    ctx.globalAlpha=0.18;
+    for(let i=-gN;i<=gN;i++){
+      const draw2=(v1,v2)=>{let ra=rotX(v1,rx);ra=rotY(ra,ry);ra=rotZ(ra,rz);let rb=rotX(v2,rx);rb=rotY(rb,ry);rb=rotZ(rb,rz);const p1=project(ra),p2=project(rb);ctx.beginPath();ctx.moveTo(p1[0],p1[1]);ctx.lineTo(p2[0],p2[1]);ctx.strokeStyle='#0050ff';ctx.lineWidth=0.5;ctx.stroke();};
+      draw2([i*gS,S,-gN*gS],[i*gS,S,gN*gS]);
+      draw2([-gN*gS,S,i*gS],[gN*gS,S,i*gS]);
+    }
+    ctx.globalAlpha=1;
+    ry+=0.006;rx+=0.0015;
+    requestAnimationFrame(draw);
+  }
+  draw();
+})();
+</script>
+</body>
+</html>
